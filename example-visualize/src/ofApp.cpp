@@ -1,7 +1,7 @@
 #include "ofApp.h"
 
 void ofApp::setup() {
-	ofSetVerticalSync(true);
+	ofSetVerticalSync(false);
 
 	plotHeight = 128;
 	bufferSize = 512;
@@ -27,9 +27,17 @@ void ofApp::setup() {
 	// 44100 samples per second
 	// [bins] samples per buffer
 	// 4 num buffers (latency)
-
-	ofSoundStreamSetup(0, 1, this, 44100, bufferSize, 4);
-
+ 
+    ofSoundStreamSettings settings;
+    settings.numOutputChannels = 0;
+    settings.numInputChannels = 1;
+    settings.sampleRate = 44100;
+    settings.bufferSize = bufferSize;
+    settings.numBuffers = 4;
+    settings.setInListener(this);
+    
+    ofSoundStreamSetup(settings);
+    
 	mode = SINE;
 	appWidth = ofGetWidth();
 	appHeight = ofGetHeight();

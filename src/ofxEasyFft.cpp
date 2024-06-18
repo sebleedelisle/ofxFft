@@ -22,7 +22,13 @@ void ofxEasyFft::setup(int bufferSize, fftWindowType windowType, fftImplementati
 	audioRaw.resize(bufferSize);
 	
     stream.getDeviceList();
-    stream.setup(0, 1, audioSampleRate, audioBufferSize, 2);
+    ofSoundStreamSettings settings;
+    settings.numOutputChannels = 0;
+    settings.numInputChannels = 1;
+    settings.sampleRate = audioSampleRate;
+    settings.bufferSize = audioBufferSize;
+    settings.numBuffers = 2;
+    stream.setup(settings);
     stream.setInput(this);
 }
 

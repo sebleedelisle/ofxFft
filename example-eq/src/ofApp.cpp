@@ -28,7 +28,14 @@ void ofApp::setup() {
 	appWidth = ofGetWidth();
 	appHeight = ofGetHeight();
 
-	ofSoundStreamSetup(0, 1, this, 44100, bufferSize, 4);
+    ofSoundStreamSettings settings;
+    settings.numOutputChannels = 0;
+    settings.numInputChannels = 1;
+    settings.sampleRate = 44100;
+    settings.bufferSize = bufferSize;
+    settings.numBuffers = 4;
+    settings.setInListener(this);
+    ofSoundStreamSetup(settings);
 
 	ofBackground(0, 0, 0);
 }
